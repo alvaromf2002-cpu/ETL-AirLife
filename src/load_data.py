@@ -80,31 +80,32 @@ def verify_data():
     connection_string = get_connection_string()
     
     try:
-        # TODO: Create SQLAlchemy engine
-        # engine = create_engine(connection_string)
+        # Create SQLAlchemy engine
+        engine = create_engine(connection_string)
         
         print("⚠️  Data verification not yet implemented")
+                
+        # Count airports in database
+        airports_count = pd.read_sql("SELECT COUNT(*) as count FROM airports", engine)
+        print(f"📊 Airports in database: {airports_count.iloc[0]['count']}")
+        
+        # Count flights in database  
+        flights_count = pd.read_sql("SELECT COUNT(*) as count FROM flights", engine)
+        print(f"📊 Flights in database: {flights_count.iloc[0]['count']}")
+        
+        # Show sample airport data
+        sample_airports = pd.read_sql("SELECT name, city, country FROM airports LIMIT 3", engine)
+        print("\n📋 Sample airports:")
+        print(sample_airports.to_string(index=False))
+        
+        # Show sample flight data (if any exists)
+        # Check if flights table has data first
+        sample_flights = pd.read_sql("SELECT callsign, origin_country, altitude FROM flights LIMIT 3", engine)
+        if not sample_flights.empty:
+            print("\n✈️  Sample flights:")
+            print(sample_flights.to_string(index=False))
+
         return
-        
-        # TODO: Count airports in database
-        # Hint: airports_count = pd.read_sql("SELECT COUNT(*) as count FROM airports", engine)
-        # print(f"📊 Airports in database: {airports_count.iloc[0]['count']}")
-        
-        # TODO: Count flights in database  
-        # Hint: flights_count = pd.read_sql("SELECT COUNT(*) as count FROM flights", engine)
-        # print(f"📊 Flights in database: {flights_count.iloc[0]['count']}")
-        
-        # TODO: Show sample airport data
-        # Hint: sample_airports = pd.read_sql("SELECT name, city, country FROM airports LIMIT 3", engine)
-        # print("\n📋 Sample airports:")
-        # print(sample_airports.to_string(index=False))
-        
-        # TODO: Show sample flight data (if any exists)
-        # Hint: Check if flights table has data first
-        # sample_flights = pd.read_sql("SELECT callsign, origin_country, altitude FROM flights LIMIT 3", engine)
-        # if not sample_flights.empty:
-        #     print("\n✈️  Sample flights:")
-        #     print(sample_flights.to_string(index=False))
         
     except Exception as e:
         print(f"❌ Error verifying data: {e}")

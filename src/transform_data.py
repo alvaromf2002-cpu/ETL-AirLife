@@ -83,10 +83,12 @@ def clean_flights(flights_df):
         'vertical_rate'     # Vertical speed in m/s
     ]
     
+
     # Make a copy to avoid modifying the original
     df = flights_df.copy()
     
     # Assign column names to the DataFrame
+    df = flights_df.loc[:, flights_df.columns[:len(expected_columns)]].copy()
     df.columns = expected_columns
     
     # Remove flights with missing coordinates
@@ -98,7 +100,7 @@ def clean_flights(flights_df):
     # Remove flights with invalid coordinates (Same coordinate bounds as airports)
     df = df[(df['latitude'] >= -90) & (df['latitude'] <= 90)]
     df = df[(df['longitude'] >= -180) & (df['longitude'] <= 180)]
-    
+
     # Clean callsign (remove extra whitespace)
     df['callsign'] = df['callsign'].str.strip()
     

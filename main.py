@@ -36,8 +36,7 @@ def main():
     clean_flights_data = clean_flights(flights)
     final_airports, final_flights = combine_data(clean_airports_data, clean_flights_data)
 
-    return
-
+    
     # Step 3: Load data
     print("\n=== LOADING ===")
     print("💾 Loading data to database...")
@@ -45,17 +44,18 @@ def main():
     # Call the loading function
     load_to_database(final_airports, final_flights)
     
+
     # Step 4: Verify everything worked
     print("\n=== VERIFICATION ===")
     print("✅ Verifying data was loaded correctly...")
     
-    # TODO: Call the verification function
-    # verify_data()
+    # Call the verification function
+    verify_data()
     
     print("\n🎉 ETL Pipeline completed!")
     print("=" * 50)
 
-    
+    return
 
 if __name__ == "__main__":
     main()
