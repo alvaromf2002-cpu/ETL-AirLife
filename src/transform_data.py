@@ -25,31 +25,27 @@ def clean_airports(airports_df):
         return airports_df
     
     print(f"🧹 Cleaning airport data...")
-    print(f"Starting with {len(airports_df)} airports")
+    print(f"\nStarting with {len(airports_df)} airports")
     
     # Make a copy to avoid modifying the original
     df = airports_df.copy()
     
-    # TODO: Remove rows with missing latitude or longitude
-    # Hint: Use .dropna(subset=['latitude', 'longitude'])
-    # df = df.dropna(subset=['latitude', 'longitude'])
+    # Remove rows with missing latitude or longitude
+    df = df.dropna(subset=['latitude', 'longitude'])
     
-    # TODO: Remove airports with invalid coordinates
-    # Latitude should be between -90 and 90
-    # Longitude should be between -180 and 180
-    # Hint: df = df[(df['latitude'] >= -90) & (df['latitude'] <= 90)]
-    # Hint: df = df[(df['longitude'] >= -180) & (df['longitude'] <= 180)]
+    # Remove airports with invalid coordinates
+    df = df[(df['latitude'] >= -90) & (df['latitude'] <= 90)]               # Latitude should be between -90 and 90
+    df = df[(df['longitude'] >= -180) & (df['longitude'] <= 180)]           # Longitude should be between -180 and 180
     
-    # TODO: Handle missing IATA codes (replace empty strings or 'N' with None)
-    # Hint: df['iata_code'] = df['iata_code'].replace(['', 'N', '\\N'], None)
+    # Handle missing IATA codes (replace empty strings or 'N' with None)
+    df['iata_code'] = df['iata_code'].replace(['', 'N', '\\N'], None)
     
-    # TODO: Convert altitude to numeric (handle non-numeric values)
-    # Hint: df['altitude'] = pd.to_numeric(df['altitude'], errors='coerce')
+    # Convert altitude to numeric (handle non-numeric values)
+    df['altitude'] = pd.to_numeric(df['altitude'], errors='coerce')
     
-    # TODO: Print how many airports remain after cleaning
-    # print(f"After cleaning: {len(df)} airports remain")
+    # Print how many airports remain after cleaning
+    print(f"After cleaning: {len(df)} airports remain\n")
     
-    print("⚠️  Airport cleaning not yet implemented")
     return df
 
 def clean_flights(flights_df):
@@ -67,7 +63,7 @@ def clean_flights(flights_df):
         return flights_df
     
     print(f"🧹 Cleaning flight data...")
-    print(f"Starting with {len(flights_df)} flights")
+    print(f"\nStarting with {len(flights_df)} flights")
     
     # The OpenSky API returns data as a list of lists without column names
     # We need to assign proper column names
@@ -89,28 +85,25 @@ def clean_flights(flights_df):
     # Make a copy to avoid modifying the original
     df = flights_df.copy()
     
-    # TODO: Assign column names to the DataFrame
-    # Hint: df.columns = expected_columns
+    # Assign column names to the DataFrame
+    df.columns = expected_columns
     
-    # TODO: Remove flights with missing coordinates
-    # Hint: df = df.dropna(subset=['longitude', 'latitude'])
+    # Remove flights with missing coordinates
+    df = df.dropna(subset=['longitude', 'latitude'])
     
-    # TODO: Convert altitude from meters to feet (multiply by 3.28084)
-    # This makes it easier to understand for aviation
-    # Hint: df['altitude'] = df['altitude'] * 3.28084
+    # Convert altitude from meters to feet (multiply by 3.28084)
+    df['altitude'] = df['altitude'] * 3.28084               # This makes it easier to understand for aviation
     
-    # TODO: Remove flights with invalid coordinates
-    # Same coordinate bounds as airports
-    # Hint: df = df[(df['latitude'] >= -90) & (df['latitude'] <= 90)]
-    # Hint: df = df[(df['longitude'] >= -180) & (df['longitude'] <= 180)]
+    # Remove flights with invalid coordinates (Same coordinate bounds as airports)
+    df = df[(df['latitude'] >= -90) & (df['latitude'] <= 90)]
+    df = df[(df['longitude'] >= -180) & (df['longitude'] <= 180)]
     
-    # TODO: Clean callsign (remove extra whitespace)
-    # Hint: df['callsign'] = df['callsign'].str.strip()
+    # Clean callsign (remove extra whitespace)
+    df['callsign'] = df['callsign'].str.strip()
     
-    # TODO: Print how many flights remain after cleaning
-    # print(f"After cleaning: {len(df)} flights remain")
+    # Print how many flights remain after cleaning
+    print(f"After cleaning: {len(df)} flights remain\n")
     
-    print("⚠️  Flight cleaning not yet implemented")
     return df
 
 def combine_data(airports_df, flights_df):

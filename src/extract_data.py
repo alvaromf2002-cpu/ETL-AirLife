@@ -20,18 +20,13 @@ def extract_airports():
     """
     print("📄 Reading airport data from CSV...")
     
-    try:
-        # TODO: Read the airports.csv file using pandas
-        # The file is located at: data/airports.csv
-        # Hint: Use pd.read_csv()
+    try:      
+        # Read the CSV file
+        df = pd.read_csv("data/airports.csv")
         
-        # For now, return an empty DataFrame
-        df = pd.DataFrame()
+        # Print how many airports were loaded
+        print(f"\nLoaded {len(df)} airports\n")       
         
-        # TODO: Print how many airports were loaded
-        # Example: print(f"Loaded {len(df)} airports")
-        
-        print("⚠️  Airport extraction not yet implemented")
         return df
         
     except Exception as e:
@@ -61,28 +56,26 @@ def extract_flights():
     try:
         print("Making API request... (this may take a few seconds)")
         
-        # TODO: Make the API request using requests.get()
-        # Hint: response = requests.get(url, params=params, timeout=10)
+        # Make the API request using requests.get()
+        response = requests.get(url, params=params, timeout=10)
         
-        # TODO: Check if the response is successful
-        # Hint: Check response.status_code == 200
+        # Check if the response is successful
+        response.status_code == 200
         
-        # TODO: Get the JSON data from the response
-        # Hint: data = response.json()
+        # Get the JSON data from the response
+        data = response.json()
         
-        # TODO: Extract the 'states' data from the JSON
+        # Extract the 'states' data from the JSON
         # The API returns: {"time": 123456789, "states": [[aircraft_data], [aircraft_data], ...]}
-        # Hint: states = data['states'] if data['states'] else []
+        states = data['states'] if data['states'] else []
         
-        # TODO: Convert to DataFrame
-        # Hint: df = pd.DataFrame(states)
+        # Convert to DataFrame
+        df = pd.DataFrame(states)
         
-        # TODO: Print how many flights were found
-        # Example: print(f"Found {len(df)} active flights")
+        # Print how many flights were found
+        print(f"\nFound {len(df)} active flights\n")
         
-        # For now, return empty DataFrame
-        print("⚠️  Flight extraction not yet implemented")
-        return pd.DataFrame()
+        return pd
         
     except requests.exceptions.RequestException as e:
         print(f"❌ Network error fetching flight data: {e}")
@@ -100,7 +93,7 @@ def test_api_connection():
     
     try:
         response = requests.get(
-            "https://opensky-network.org/api/states/all",
+            "https://opensky-network.org/api/states/all?lamin=45&lomin=5&lamax=50&lomax=15",
             params={'lamin': 45, 'lomin': 5, 'lamax': 46, 'lomax': 6},
             timeout=5
         )
