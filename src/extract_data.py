@@ -93,7 +93,7 @@ def test_api_connection():
     
     try:
         response = requests.get(
-            "https://opensky-network.org/api/states/all?lamin=45&lomin=5&lamax=50&lomax=15",
+            "https://opensky-network.org/api/states/all",
             params={'lamin': 45, 'lomin': 5, 'lamax': 46, 'lomax': 6},
             timeout=5
         )
