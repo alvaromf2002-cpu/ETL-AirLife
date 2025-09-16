@@ -27,7 +27,6 @@ def main():
     airports = extract_airports()
     flights = extract_flights()
 
-
     # Step 2: Transform data
     print("\n=== TRANSFORMATION ===")
     print("🔄 Cleaning and transforming data...")
@@ -37,6 +36,7 @@ def main():
     clean_flights_data = clean_flights(flights)
     final_airports, final_flights = combine_data(clean_airports_data, clean_flights_data)
 
+    return
 
     # Step 3: Load data
     print("\n=== LOADING ===")
@@ -55,7 +55,7 @@ def main():
     print("\n🎉 ETL Pipeline completed!")
     print("=" * 50)
 
-    return
+    
 
 if __name__ == "__main__":
     main()

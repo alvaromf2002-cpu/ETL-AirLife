@@ -14,7 +14,7 @@ import psycopg2
 # Database connection configuration
 DATABASE_CONFIG = {
     'username': 'agurban',
-    'password': 'prueba', 
+    'password': 'vegetta777', 
     'host': 'localhost',
     'port': '5432',
     'database': 'airlife_db'
@@ -40,8 +40,6 @@ def load_to_database(airports_df, flights_df):
     try:
         # Create SQLAlchemy engine
         engine = create_engine(connection_string)
-        
-        
         
         # Load airports data (Use pandas to_sql method to insert data)
         airports_df.to_sql('airports', engine, if_exists='replace', index=False)

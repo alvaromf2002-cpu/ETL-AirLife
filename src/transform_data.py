@@ -20,6 +20,7 @@ def clean_airports(airports_df):
     Returns:
         pandas.DataFrame: Cleaned airport data
     """
+    
     if airports_df.empty:
         print("⚠️  No airport data to clean")
         return airports_df

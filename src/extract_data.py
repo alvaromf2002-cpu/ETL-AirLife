@@ -75,7 +75,7 @@ def extract_flights():
         # Print how many flights were found
         print(f"\nFound {len(df)} active flights\n")
         
-        return pd
+        return df
         
     except requests.exceptions.RequestException as e:
         print(f"❌ Network error fetching flight data: {e}")
